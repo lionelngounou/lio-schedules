@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="LIONELNW7VM" id="0" name="UserUnitSpec" package="com.lio_schedules.domain" tests="22" time="5.365" timestamp="2014-10-22T08:51:48">
+      <properties />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="properties presence" time="1.465" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="a valid user has no errors" time="2.575" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="user can be found by email: #testEmail" time="0.316" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=  has error:blank" time="0.11" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of name=  has error:blank" time="0.055" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of password=  has error:blank" time="0.054" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=temail has error:email" time="0.049" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=temail@ has error:email" time="0.053" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=temail@t has error:email" time="0.029" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=temail@t. has error:email" time="0.02" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=email@test.it has error:null" time="0.021" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=email@test.it has error:null" time="0.024" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of password=5char has error:null" time="0.049" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of password=15char000000000 has error:null" time="0.029" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of email=null has error:nullable" time="0.037" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of name=null has error:nullable" time="0.034" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of password=null has error:nullable" time="0.035" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of name=wwww has error:size" time="0.041" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of name=101char0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 has error:size" time="0.036" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of password=wwww has error:size" time="0.032" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="constraint test of password=16char0000000000 has error:size" time="0.03" />
+
+      <testcase classname="com.lio_schedules.domain.UserUnitSpec" name="user email must be unique" time="0.095" />
+
+      <system-out><![CDATA[--Output from properties presence--
+--Output from a valid user has no errors--
+--Output from user can be found by email: #testEmail--
+--Output from constraint test of email=  has error:blank--
+--Output from constraint test of name=  has error:blank--
+--Output from constraint test of password=  has error:blank--
+--Output from constraint test of email=temail has error:email--
+--Output from constraint test of email=temail@ has error:email--
+--Output from constraint test of email=temail@t has error:email--
+--Output from constraint test of email=temail@t. has error:email--
+--Output from constraint test of email=email@test.it has error:null--
+--Output from constraint test of email=email@test.it has error:null--
+--Output from constraint test of password=5char has error:null--
+--Output from constraint test of password=15char000000000 has error:null--
+--Output from constraint test of email=null has error:nullable--
+--Output from constraint test of name=null has error:nullable--
+--Output from constraint test of password=null has error:nullable--
+--Output from constraint test of name=wwww has error:size--
+--Output from constraint test of name=101char0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 has error:size--
+--Output from constraint test of password=wwww has error:size--
+--Output from constraint test of password=16char0000000000 has error:size--
+--Output from user email must be unique--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from properties presence--
+--Output from a valid user has no errors--
+--Output from user can be found by email: #testEmail--
+--Output from constraint test of email=  has error:blank--
+--Output from constraint test of name=  has error:blank--
+--Output from constraint test of password=  has error:blank--
+--Output from constraint test of email=temail has error:email--
+--Output from constraint test of email=temail@ has error:email--
+--Output from constraint test of email=temail@t has error:email--
+--Output from constraint test of email=temail@t. has error:email--
+--Output from constraint test of email=email@test.it has error:null--
+--Output from constraint test of email=email@test.it has error:null--
+--Output from constraint test of password=5char has error:null--
+--Output from constraint test of password=15char000000000 has error:null--
+--Output from constraint test of email=null has error:nullable--
+--Output from constraint test of name=null has error:nullable--
+--Output from constraint test of password=null has error:nullable--
+--Output from constraint test of name=wwww has error:size--
+--Output from constraint test of name=101char0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 has error:size--
+--Output from constraint test of password=wwww has error:size--
+--Output from constraint test of password=16char0000000000 has error:size--
+--Output from user email must be unique--
+]]></system-err>
+
+  </testsuite>
+</testsuites>
