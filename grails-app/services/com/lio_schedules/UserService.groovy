@@ -5,7 +5,7 @@ package com.lio_schedules
  */
 class UserService {
 	
-	static AUTHORITIES = [ADMIN:"ROLE_ADMIN", USER:"ROLE_USER"]
+	final static AUTHORITIES = [ADMIN:"ROLE_ADMIN", USER:"ROLE_USER"].asImmutable()
 	
 	void createUser(User user){
 		createUserWithRole(user, userRole)
@@ -17,7 +17,6 @@ class UserService {
 	
 	void createUserWithRole(User user, Role role){
 		log.info "Create user $user , with role $role"
-		println "Create user $user , with role $role"
 		user.save()
 		UserRole.create(user, role, true)
 	}

@@ -13,7 +13,7 @@ class UserRegistrationCommand{
 	static constraints = {
 		name shared: "notNullOrBlank", size: 5..100
         email shared: "notNullOrBlank", email:true, unique: true, index: 'USER_EMAIL_IDX'
-        password (shared: "notNullOrBlank", size: 5..15, 
+        password (shared: "notNullOrBlank", size: 6..30, 
         	validator: {pwd, user ->
 				if(pwd==user.email) return "user.password.matchesEmail"
 			}
@@ -26,7 +26,7 @@ class UserRegistrationCommand{
     }
 
     User asUser(){
-    	new User(properties)
+    	new User(name:name, email:email, password:password, website:website)
     }
 }
 

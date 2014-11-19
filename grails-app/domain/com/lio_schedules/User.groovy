@@ -18,8 +18,6 @@ class User {
 	boolean passwordExpired
 
 	static mapping = {
-		table 'tblUser'
-		version false
 		autoTimestamp true
 		password column: 'passwd'
 	}
@@ -27,7 +25,7 @@ class User {
     static constraints = {
 		name shared: "notNullOrBlank", size: 5..100
         password (shared: "notNullOrBlank", 
-        	/*size: 5..15, would fail validation after password encoding */
+        	/*size: 6..30, would fail validation after password encoding */
         	validator: {pwd, user ->
 				if(user.email == pwd) return "user.password.matchesEmail"
 			}
@@ -51,7 +49,6 @@ class User {
 	}
 	
 	protected void encodePassword() {
-		def salt = email 
-		password = springSecurityService.encodePassword(password, salt)
+		password = springSecurityService.encodePassword(password, email)
 	}
 }

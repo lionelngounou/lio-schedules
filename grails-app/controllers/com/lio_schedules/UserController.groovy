@@ -69,7 +69,6 @@ class UserController {
     }
 	
 	def showRegistrationPage() {
-        println "All users: ${User.list()}"
         if (springSecurityService.isLoggedIn()) {
             redirect(controller: "schedule")
             return

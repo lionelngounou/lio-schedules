@@ -65,6 +65,15 @@ grails.gorm.default.constraints = {
 grails.gorm.failOnError = true
 grails.gorm.autoFlush = true
 
+grails.gorm.default.mapping = {
+	version false
+	autoTimestamp false
+	dynamicUpdate true
+	"user-type" type: org.jadira.usertype.dateandtime.joda.PersistentDateTime, class: org.joda.time.DateTime
+	"user-type" type: org.jadira.usertype.dateandtime.joda.PersistentLocalDate, class: org.joda.time.LocalDate
+	"user-type" type: org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime, class: org.joda.time.LocalDateTime
+}
+
 grails.sitemesh.default.layout = 'baseLayout'
 grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
@@ -135,6 +144,10 @@ log4j = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
+	
+	root {
+		info()
+	}
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -147,4 +160,10 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+	
+	info	'grails.app', 
+			'com.lio_schedules'
+	
+	debug	'com.lio_schedules', 
+			'StackTrace'
 }

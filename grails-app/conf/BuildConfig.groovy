@@ -44,12 +44,14 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
 		test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+		compile "org.jadira.usertype:usertype.jodatime:1.9"
     }
 
     plugins {
         runtime ":hibernate:3.6.10.8" // or ":hibernate4:4.1.11.6"
         runtime ":jquery:1.8.3"
         runtime ":resources:1.2"
+		compile ':scaffolding:1.0.0'
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"

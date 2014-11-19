@@ -8,7 +8,15 @@
 	</head>
 	<body>
 		<div id="list-schedule" class="content" role="main">
-			<h1>${listMode}</h1>
+			
+			<g:render template="scheduleNav" />
+
+			<h2>${new Date()}</h2>
+
+			<div class="container">
+				<g:render template="listTable" />
+			</div>
+			
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
