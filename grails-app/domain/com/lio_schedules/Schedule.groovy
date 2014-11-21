@@ -5,11 +5,11 @@ import org.joda.time.*
 /**
  * @author lionel.ngounou
  */
-@groovy.transform.EqualsAndHashCode(includes="id, user, title, fromDateTime, toDateTime")
-@groovy.transform.ToString(includes="id, title, fromDateTime, toDateTime")
+@groovy.transform.EqualsAndHashCode(includes="id, user, title, start, end")
+@groovy.transform.ToString(includes="id, title, start, end")
 class Schedule {
 	String title
-	LocalDateTime fromDateTime, toDateTime
+	LocalDateTime start, end
 	String description
 	
 	static belongsTo = [user:User]
@@ -17,39 +17,34 @@ class Schedule {
 	static mapping = {
 		version false
 		autoTimestamp true
+		start column: "start_date_time"
+		end column: "end_date_time"
 	}
 	
     static constraints = {
 		title shared: "notNullOrBlank", maxSize: 50
         user nullable:false, updateable: false
-		fromDateTime nullable:false
-		toDateTime nullable:false, validator: {val, schedule ->
-				if(val.isBefore(schedule.fromDateTime))
-					return "schedule.toDateTime.before.fromDateTime"
+		start nullable:false
+		end nullable:false, validator: {val, schedule ->
+				if(val.isBefore(schedule.start))
+					return "schedule.end.before.start"
 			}
 		description maxSize: 100
 	}
 	
-	transient springSecurityService
-	static transients = ['springSecurityService']
-	
-	void setToDateTimeIfNull(){
-		if(fromDateTime && !toDateTime){
-			toDateTime=fromDateTime
+	void setEndIfNull(){
+		if(start && !end) {
+			setEndToStart()
 		}
 	}
 	
-	def beforeInsert(){
-		setToDateTimeIfNull()
-		user = springSecurityService?.currentUser
-	}
-	
-	def beforeUpdate(){
-		setToDateTimeIfNull()
+	void setEndToStart(){
+		end=start
 	}
 	
 	boolean startsAndEndsAtTheSameTime(){
-		fromDateTime==toDateTime
+		start==end
 	}
+	
 }
 

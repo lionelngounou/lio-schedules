@@ -13,7 +13,7 @@ class ScheduleController {
 	}
 	
 	def getUserSchedule(Long id){
-		Schedule.findByIdAndUser id, currenUser
+		Schedule.findByIdAndUser id, currentUser
 	}
 	
 	def getUserSchedules(){
@@ -46,6 +46,8 @@ class ScheduleController {
 
 	def save(){
 		def schedule = new Schedule(params)
+		schedule.user = currentUser 
+		schedule.setEndIfNull()
 		
         if (!schedule.save()) {
             render(view: "create", model: [scheduleInstance: schedule])
@@ -64,7 +66,8 @@ class ScheduleController {
         }		
         
 		schedule.properties = params
-        
+        schedule.setEndIfNull()
+		
 		if (!schedule.save()) {
             render(view: "edit", model: [scheduleInstance: schedule])
             return

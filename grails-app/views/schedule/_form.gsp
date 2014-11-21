@@ -12,24 +12,24 @@
     </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'fromDateTime', 'error')} required control-group">
-	<label for="fromDateTime" class="control-label">
-		<g:message code="schedule.fromDateTime.label" default="On/From" class="input-xxlarge"/>
+<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'start', 'error')} required control-group">
+	<label for="start" class="control-label">
+		<g:message code="schedule.start.label" default="On/From" class="input-xxlarge"/>
 		<span class="required-indicator">*</span>
 	</label>	
 	<div class="controls">
-		<joda:dateTimePicker name="fromDateTime" required="" class="input-xlarge" years="${2013..2020}" value="${scheduleInstance?.fromDateTime}" />
+		<joda:dateTimePicker name="start" required="" class="input-xlarge" years="${2013..2020}" value="${scheduleInstance?.start}" />
         <span class="help-inline hidden">Please correct the error</span>
     </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'toDateTime', 'error')} control-group">
-	<label for="toDateTime" class="control-label">
-		<g:message code="schedule.toDateTime.label" default="To" class="input-xxlarge"/>
+<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'end', 'error')} control-group">
+	<label for="end" class="control-label">
+		<g:message code="schedule.end.label" default="To" class="input-xxlarge"/>
 	</label>	
 	<div class="controls">
-		<joda:dateTimePicker name="toDateTime" class="input-xlarge" years="${2013..2020}" noSelection="['':'-']" 
-			value="${scheduleInstance?.toDateTime}" default="none" />
+		<joda:dateTimePicker name="end" class="input-xlarge" years="${2013..2020}" noSelection="['':'-']" 
+			value="${scheduleInstance?.end}" default="none" />
         <span class="help-inline hidden">Please correct the error</span>
     </div>
 </div>
