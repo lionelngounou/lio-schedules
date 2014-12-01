@@ -161,9 +161,13 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 	
-	info	'grails.app', 
-			'com.lio_schedules'
+	info	'grails.app.conf.com.lio_schedules', 
+      'grails.app.domain.com.lio_schedules', 
+      'grails.app.services.com.lio_schedules', 
+      'grails.app.controllers.com.lio_schedules'
 	
-	debug	'com.lio_schedules', 
-			'StackTrace'
+	debug	'grails.app.conf.com.lio_schedules', 
+      'grails.app.domain.com.lio_schedules', 
+      'grails.app.services.com.lio_schedules', 
+      'grails.app.controllers.com.lio_schedules'
 }

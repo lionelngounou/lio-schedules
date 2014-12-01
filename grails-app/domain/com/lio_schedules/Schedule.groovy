@@ -26,11 +26,14 @@ class Schedule {
         user nullable:false, updateable: false
 		start nullable:false
 		end nullable:false, validator: {val, schedule ->
-				if(val.isBefore(schedule.start))
+				if(val.isBefore(schedule.start)){
 					return "schedule.end.before.start"
+				}
 			}
 		description maxSize: 100
 	}
+
+	static transients = ['startHour', 'startMinute', 'endHour', 'endMinute']
 	
 	void setEndIfNull(){
 		if(start && !end) {
@@ -46,5 +49,20 @@ class Schedule {
 		start==end
 	}
 	
+	def getStartHour(){
+		start?.hourOfDay
+	}
+
+	def getEndHour(){
+		end?.hourOfDay
+	}
+
+	def getStartMinute(){
+		start?.minuteOfHour
+	}
+
+	def getEndMinute(){
+		end?.minuteOfHour
+	}
 }
 

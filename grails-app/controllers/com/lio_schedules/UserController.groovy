@@ -54,7 +54,6 @@ class UserController {
                 render view: "registrationPage", model: [user: command]
                 return
             }
-            println "registration form is valid"
             userService.createUser command.asUser()
             springSecurityService.reauthenticate command.email
             if (springSecurityService.isLoggedIn()) {

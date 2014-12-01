@@ -22,7 +22,7 @@
 			</g:hasErrors>
 			<g:form action="save" class="form-horizontal well">
 				<fieldset>
-					<legend>Edit schedule (${id})</legend>
+					<legend>Edit schedule #${scheduleInstance.id}</legend>
 					<g:render template="form"/>
 					
 					<div class="form-actions">

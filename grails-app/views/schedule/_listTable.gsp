@@ -1,13 +1,15 @@
-<div class="container well ">
-	<a href="/"><span class="label label-success">See Man (Monday 12:34 - Tuesday 23:23)</span></a>
-   <div class="">
-	  Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. 
-  </div>
-</div>
-
-<div class="container well ">
-  <span class="label label-success">See Man (Monday 12:34 - Tuesday 23:23)</span>
-  <div class="">
-	  Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. 
-  </div>
-</div>
+<g:each var="schedule" in="${scheduleList}">
+	<div class="container well ">
+		<a href="${createLink(action: 'edit', id: schedule.id)}">
+			<span class="label label-success">${schedule.title} 
+			<g:if test="${schedule.start == schedule.end}">
+				(${joda.format(pattern:'E dd MMM yyyy [hh:mm]', value: schedule.start)})
+			</g:if>
+			<g:else>
+				(${joda.format(pattern:'E dd MMM yyyy [hh:mm]', value: schedule?.start)} -
+				${joda.format(pattern:'E dd MMM yyyy [hh:mm]', value: schedule?.end)})
+			</g:else>
+		</a>
+	   <div class="">${schedule.description}</div>
+	</div>
+</g:each>

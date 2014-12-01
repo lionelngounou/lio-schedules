@@ -12,25 +12,32 @@
     </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'start', 'error')} required control-group">
-	<label for="start" class="control-label">
+<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'startDate', 'error')} required control-group">
+	<label for="startDate" class="control-label">
 		<g:message code="schedule.start.label" default="On/From" class="input-xxlarge"/>
 		<span class="required-indicator">*</span>
 	</label>	
 	<div class="controls">
-		<joda:dateTimePicker name="start" required="" class="input-xlarge" years="${2013..2020}" value="${scheduleInstance?.start}" />
-        <span class="help-inline hidden">Please correct the error</span>
+		<g:textField class="date-picker" name="startDate" data-date-format="dd/mm/yyyy" required="" 
+			value="${joda.format(pattern:'dd/mm/yyyy', value: scheduleInstance?.start)}" />
+		<g:select name="startHour" from="${0..23}" class="span1" required="" value="${scheduleInstance?.startHour}" optionValue="${{it.toString().padLeft(2,'0')}}" />
+		<g:select name="startMinute" from="${0..59}" class="span1" required="" value="${scheduleInstance?.startMinute}" optionValue="${{it.toString().padLeft(2,'0')}}" />
+		<span class="help-inline hidden">Please correct the error</span>
     </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'end', 'error')} control-group">
-	<label for="end" class="control-label">
+<div class="fieldcontain ${hasErrors(bean: scheduleInstance, field: 'endDate', 'error')} control-group">
+	<label for="endDate" class="control-label">
 		<g:message code="schedule.end.label" default="To" class="input-xxlarge"/>
 	</label>	
 	<div class="controls">
-		<joda:dateTimePicker name="end" class="input-xlarge" years="${2013..2020}" noSelection="['':'-']" 
-			value="${scheduleInstance?.end}" default="none" />
-        <span class="help-inline hidden">Please correct the error</span>
+		<g:textField class="date-picker" name="endDate" data-date-format="dd/mm/yyyy" 
+			value="${joda.format(pattern:'dd/mm/yyyy', value: scheduleInstance?.end)}" />
+		<g:select name="endHour" from="${0..23}" class="span1" value="${scheduleInstance?.endHour}" 
+			noSelection="['':'']" optionValue="${{it.toString().padLeft(2,'0')}}" />
+		<g:select name="endMinute" from="${0..59}" class="span1" value="${scheduleInstance?.endMinute}" 
+			noSelection="['':'']" optionValue="${{it.toString().padLeft(2,'0')}}" />
+		<span class="help-inline hidden">Please correct the error</span>
     </div>
 </div>
 
@@ -44,4 +51,3 @@
         <span class="help-inline hidden">Please correct the error</span>
     </div>
 </div>
-

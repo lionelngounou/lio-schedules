@@ -5,5 +5,10 @@ if (typeof jQuery !== 'undefined') {
 		}).ajaxStop(function() {
 			$(this).fadeOut();
 		});
+		initDatePicker();
 	})(jQuery);
+}
+
+function initDatePicker(){
+	$('.date-picker').datepicker();
 }
