@@ -17,9 +17,66 @@ class ScheduleController {
 
     def list(String listMode) {
 		listMode = listMode ?: "day"
-        [listMode: listMode, scheduleList: getUserSchedules()]
+		def scheduleList = searchForDates()
+        [listMode: listMode, scheduleList: scheduleList, search: [from: params.from, to: params.to], 
+        	today: params.today]
     }
-
+	
+	private def searchForDates(){
+		params.today = new LocalDate()
+		def when = params.when ?: "onDay"
+		def listMode = params.listMode
+		def forDate = params.long('forDate') ?: params.today.localMillis
+		def from = null, to = null
+		if("day" == listMode){
+			//default = onDay
+			from = new LocalDate(forDate)
+			to = from.plusDays(1)
+			if("previous"==when){
+				to = from
+				from = to.minusDays(1)
+			}
+			else if("next"==when){
+				from = to
+				to = from.plusDays(1)
+			}
+		}
+		else if("week" == listMode){
+			//default = onDay
+			from = Utils.getFirstDateOfTheWeek(new LocalDate(forDate))
+			to = from.plusWeeks(1)
+			if("previous"==when){
+				to = from
+				from = to.minusWeeks(1)
+			}
+			else if("next"==when){
+				from = to
+				to = from.plusWeeks(1)
+			}
+		}
+		else if("month" == listMode){
+			//default = onDay
+			def date = new LocalDate(forDate)
+			from = Utils.getFirstDateOfTheMonth(date)
+			to = Utils.getLastDateOfTheMonth(date).plusDays(1)
+			if("previous"==when){
+				to = from
+				from = Utils.getFirstDateOfTheMonth(to.minusDays(1))
+			}
+			else if("next"==when){
+				from = to
+				to = Utils.getLastDateOfTheMonth(from).plusDays(1)
+			}
+		}
+		params.from = from.localMillis //set in params
+		params.to = to.localMillis //set in params
+		from = new LocalDateTime(params.from)
+		to = new LocalDateTime(params.to)
+		println "@@@@@ list schedules between [$from] and [$to]"
+		Schedule.where{user==currentUser && 
+			((start>=from && start<=to) || (end>=from && end<=to))}.list()
+	}
+	
 	def create(){
 		//[scheduleInstance: flash.schedule]
 	}
@@ -100,4 +157,11 @@ class ScheduleController {
 		 Schedule.findAllByUser currentUser
 	}
 	
+	private def search(){
+		def searchParams = params.search
+		def from = new LocalDateTime(searchParams.from)
+		def to = new LocalDateTime(searchParams.to)
+		Schedule.where{user==currentUser && 
+			((start>=from && start<=to) || (end>=from && end<=to))}.list()
+	}
 }

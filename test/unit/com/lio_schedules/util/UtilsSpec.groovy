@@ -3,6 +3,7 @@ package com.lio_schedules.util
 import grails.test.mixin.*
 import spock.lang.*
 import com.lio_schedules.*
+import static com.lio_schedules.Utils.*
 
 class UtilsSpec extends Specification {
 
@@ -20,7 +21,7 @@ class UtilsSpec extends Specification {
 			def dt = null
 
 		when: 'there are all date time parts'
-			dt = Utils.toLocalDateTime p
+			dt = toLocalDateTime p
 		then: 
 			dt != null 
 			hasDateFields(dt, 2010, 10, 10)
@@ -28,13 +29,13 @@ class UtilsSpec extends Specification {
 		
 		when: 'there are not all date time parts'
 			p.hour = null
-			dt = Utils.toLocalDateTime p
+			dt = toLocalDateTime p
 		then: 
 			dt == null 
 
 		when: 'there are invalid date time parts'
 			p.hour = 133
-			dt = Utils.toLocalDateTime p
+			dt = toLocalDateTime p
 		then: 
 			dt == null 
 	}
@@ -45,20 +46,20 @@ class UtilsSpec extends Specification {
 			def dt = null 
 
 		when: 'there are all date parts'
-			dt = Utils.toLocalDate dateStr
+			dt = toLocalDate dateStr
 		then: 
 			dt != null 
 			hasDateFields(dt, 2010, 10, 10)
 		
 		when: 'there are not all date parts'
 			dateStr = '10//2010'
-			dt = Utils.toLocalDate dateStr
+			dt = toLocalDate dateStr
 		then: 
 			dt == null 
 
 		when: 'there are invalid date parts'
 			dateStr = '10/we/2010'
-			dt = Utils.toLocalDate dateStr
+			dt = toLocalDate dateStr
 		then: 
 			dt == null 
 	}
@@ -66,7 +67,7 @@ class UtilsSpec extends Specification {
 	@Unroll
 	void 'test date[#date] string is valid [#result] format according to date format in constants'(){
 		expect: 
-			Utils.isValidDateFormat(dateStr) == result
+			isValidDateFormat(dateStr) == result
 		where:  
 			dateStr		 || result
 			'10/10/2010' || true
@@ -80,7 +81,7 @@ class UtilsSpec extends Specification {
 	@Unroll
 	void 'test [date:#date, hour:#hour, minute:#minute] isCompleteDateTime #result' (){
 		expect: 
-			Utils.isCompleteDateTime(Utils.toLocalDate(date), hour, minute) == result
+			isCompleteDateTime(toLocalDate(date), hour, minute) == result
 		where:  
 			date 		 | hour | minute || result
 			'10/10/2010' | 10   | 10     || true
@@ -93,7 +94,7 @@ class UtilsSpec extends Specification {
 	@Unroll
 	void 'test [date:#date, hour:#hour, minute:#minute] isEmptyDateTime #result' (){
 		expect: 
-			Utils.isEmptyDateTime(Utils.toLocalDate(date), hour, minute) == result
+			isEmptyDateTime(toLocalDate(date), hour, minute) == result
 		where:  
 			date 		 | hour | minute || result
 			'10/10/2010' | 10   | 10     || false
@@ -106,7 +107,7 @@ class UtilsSpec extends Specification {
 	@Unroll
 	void 'test [date:#date, hour:#hour, minute:#minute] isEmptyOrValidDateTime #result' (){
 		expect: 
-			Utils.isEmptyOrValidDateTime(date, hour, minute) == result
+			isEmptyOrValidDateTime(date, hour, minute) == result
 		where:  
 			date 		 | hour | minute || result
 			'10/10/2010' | 10   | 10     || true
@@ -118,4 +119,55 @@ class UtilsSpec extends Specification {
 			'10/10/2010' | 10   | 70     || false
 			'10/10/2010' | 70   | 10     || false
 	}
+
+	@Unroll
+	void 'test first date of the week for [#date] is [#result]' (){
+		expect: 
+			getFirstDateOfTheWeek(toLocalDate(date)) == toLocalDate(result)
+		where:  
+			date 		 || result
+			'04/12/2014' || '01/12/2014'
+			'08/12/2014' || '08/12/2014'
+			'21/12/2014' || '15/12/2014'
+			'01/01/2015' || '29/12/2014'
+	}
+
+	@Unroll
+	void 'test last date of the week for [#date] is [#result]' (){
+		expect: 
+			getLastDateOfTheWeek(toLocalDate(date)) == toLocalDate(result)
+		where:  
+			date 		 || result
+			'04/12/2014' || '07/12/2014'
+			'08/12/2014' || '14/12/2014'
+			'21/12/2014' || '21/12/2014'
+			'31/12/2014' || '04/01/2015'
+	}
+
+	@Unroll
+	void 'test first date of the month for [#date] is [#result]' (){
+		expect: 
+			getFirstDateOfTheMonth(toLocalDate(date)) == toLocalDate(result)
+		where:  
+			date 		 || result
+			'04/12/2014' || '01/12/2014'
+			'01/12/2014' || '01/12/2014'
+			'31/12/2014' || '01/12/2014'
+			'29/02/2012' || '01/02/2012'
+			'28/02/2014' || '01/02/2014'
+	}
+
+	@Unroll
+	void 'test last date of the month for [#date] is [#result]' (){
+		expect: 
+			getLastDateOfTheMonth(toLocalDate(date)) == toLocalDate(result)
+		where:  
+			date 		 || result
+			'04/12/2014' || '31/12/2014'
+			'01/12/2014' || '31/12/2014'
+			'31/12/2014' || '31/12/2014'
+			'29/02/2012' || '29/02/2012'
+			'28/02/2014' || '28/02/2014'
+	}
+
 }

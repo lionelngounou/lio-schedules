@@ -52,5 +52,21 @@ class Utils {
 			return false
 		(isValidDateFormat(date) &&  isCompleteDateTime(localDate, hour, minute))
 	}
+
+	static LocalDate getFirstDateOfTheWeek (LocalDate date) {
+		date.dayOfWeek().withMinimumValue()
+	}
+	
+	static LocalDate getLastDateOfTheWeek (LocalDate date) {
+		date.dayOfWeek().withMaximumValue()
+	}
+
+	static LocalDate getFirstDateOfTheMonth (LocalDate date) {
+		date.dayOfMonth().withMinimumValue()
+	}
+
+	static LocalDate getLastDateOfTheMonth (LocalDate date) {
+		date.dayOfMonth().withMaximumValue()
+	}
 }
 

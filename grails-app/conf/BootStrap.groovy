@@ -1,7 +1,5 @@
 import grails.util.Environment
-import com.lio_schedules.Role
-import com.lio_schedules.User
-import com.lio_schedules.UserRole
+import com.lio_schedules.*
 
 class BootStrap {
 
@@ -24,8 +22,15 @@ class BootStrap {
     private void initDevEnvironment(servletContext){
 		servletContext.setAttribute("environment", "development")
 		userService.initRoles()
-		userService.createAdmin(new User(name:"admin", email:"admin@schedules.lio", password:"password"))
+		def admin = new User(name:"admin", email:"admin@schedules.lio", password:"password")
+		userService.createAdmin(admin)
 		userService.createUser(new User(name:"kalkul.camer", email:"lay@schedules.lio", password:"password"))
+
+		def date = Utils.toLocalDateTime([date:'27/10/2014', hour:10, minute:10])
+		(0..70).each{
+			def sDt = date.plusDays(it)
+			new Schedule(user:admin, title:"schedule $it for $sDt", start:sDt, end:sDt).save()
+		}
 	}
 
     private void initTestEnvironment(servletContext){

@@ -22,10 +22,10 @@ class ScheduleCommand{
 		startHour nullable:false, range: 0..23
 		startMinute nullable:false, range: 0..59
 		endDate nullable:true, validator: {eDate, cmd ->
-			println "checking if [date:$eDate, hour:${cmd.endHour}, min:${cmd.endMinute} is empty or valid"
 			if(!Utils.isEmptyOrValidDateTime(eDate, cmd.endHour, cmd.endMinute))
 				return "schedule.end.invalid"
-			//todo: implement end.before.start validation 
+			if(eDate && Utils.toLocalDate(cmd.startDate).after(Utils.toLocalDate(eDate)))
+				return "schedule.end.before.start"
 		}
 		endHour nullable:true, range: 0..23
 		endMinute nullable:true, range: 0..59
